@@ -3,6 +3,7 @@
 import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_themer/src/themer_state.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeMode themeMode;
@@ -17,9 +18,9 @@ class ThemeProvider extends ChangeNotifier {
     }
   }
 
-  void toggleTheme(bool isOn) {
+  Future<void> toggleTheme(bool isOn) async {
     themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
-
+    await ThemerState.saveThemeMode(themeMode);
     notifyListeners();
   }
 }

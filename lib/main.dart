@@ -22,6 +22,12 @@ class MyApp extends StatelessWidget {
     return FutureBuilder(
       future: ThemerState.getsavedTheme,
       builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
         return ChangeNotifierProvider(
           create: (context) =>
               ThemeProvider(themeMode: snapshot.data as ThemeMode),
